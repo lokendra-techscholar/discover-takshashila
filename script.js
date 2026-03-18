@@ -59,14 +59,25 @@ function flipToPage(targetPage) {
 
     isAnimating = true;
     const pages = document.querySelectorAll('.page');
+    const prevPage = currentPage;
+
+    // Update state immediately
+    currentPage = targetPage;
+    updateControls();
 
     // Reset active states
     pages.forEach(p => p.classList.remove('active'));
 
-    if (targetPage > currentPage) {
+    // Immediately give the target page a high z-index so it's visible
+    // throughout the entire transition (prevents other pages bleeding through)
+    if (pages[targetPage]) {
+        pages[targetPage].style.zIndex = 15;
+    }
+
+    if (targetPage > prevPage) {
         // Flip forward - flip all pages from current to target-1
         let delay = 0;
-        for (let i = currentPage; i < targetPage; i++) {
+        for (let i = prevPage; i < targetPage; i++) {
             const page = pages[i];
             if (page) {
                 setTimeout(() => {
@@ -78,11 +89,10 @@ function flipToPage(targetPage) {
                         page.style.zIndex = 0; // Send behind after flip
                     }, 800);
                 }, delay);
-                delay += Math.min(150, 600 / (targetPage - currentPage));
+                delay += Math.min(150, 600 / (targetPage - prevPage));
             }
         }
         setTimeout(() => {
-            currentPage = targetPage;
             if (pages[targetPage]) pages[targetPage].classList.add('active');
             updatePageZIndices();
             isAnimating = false;
@@ -90,7 +100,7 @@ function flipToPage(targetPage) {
     } else {
         // Flip backward - unflip all pages from current-1 to target
         let delay = 0;
-        for (let i = currentPage - 1; i >= targetPage; i--) {
+        for (let i = prevPage - 1; i >= targetPage; i--) {
             const page = pages[i];
             if (page) {
                 setTimeout(() => {
@@ -101,19 +111,15 @@ function flipToPage(targetPage) {
                         page.classList.remove('flipping');
                     }, 800);
                 }, delay);
-                delay += Math.min(150, 600 / (currentPage - targetPage));
+                delay += Math.min(150, 600 / (prevPage - targetPage));
             }
         }
         setTimeout(() => {
-            currentPage = targetPage;
             if (pages[targetPage]) pages[targetPage].classList.add('active');
             updatePageZIndices();
             isAnimating = false;
         }, delay + 800);
     }
-
-    currentPage = targetPage;
-    updateControls();
 }
 
 function nextPage() {
