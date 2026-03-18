@@ -10,13 +10,13 @@
 }
 
 :root {
-    --color-primary: #1a3a5c;
-    --color-primary-light: #2d5f8a;
-    --color-accent: #c4a35a;
-    --color-accent-light: #e8d5a3;
+    --color-primary: #620d3c;
+    --color-primary-light: #8a1856;
+    --color-accent: #f1a222;
+    --color-accent-light: #f7cb72;
     --color-bg: #ffffff;
-    --color-bg-warm: #faf8f5;
-    --color-bg-page: #fffef9;
+    --color-bg-warm: #fffbe2;
+    --color-bg-page: #fffef5;
     --color-text: #2c2c2c;
     --color-text-light: #5a5a5a;
     --color-border: #e0dcd4;
@@ -58,9 +58,9 @@ body {
     position: absolute;
     inset: 0;
     background-image:
-        radial-gradient(circle at 20% 50%, rgba(196, 163, 90, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(26, 58, 92, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 60% 80%, rgba(196, 163, 90, 0.04) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(241, 162, 34, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(98, 13, 60, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 60% 80%, rgba(241, 162, 34, 0.04) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -152,7 +152,7 @@ body {
 .open-book-btn:hover {
     background: var(--color-primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(26, 58, 92, 0.25);
+    box-shadow: 0 8px 24px rgba(98, 13, 60, 0.25);
 }
 
 .btn-icon {
@@ -418,7 +418,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #0f2840 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #3a0724 100%);
     color: white;
     text-align: center;
     position: relative;
@@ -429,7 +429,7 @@ body {
     position: absolute;
     width: 80px;
     height: 80px;
-    border: 2px solid rgba(196, 163, 90, 0.3);
+    border: 2px solid rgba(241, 162, 34, 0.3);
 }
 
 .cover-ornament.top-left { top: 20px; left: 20px; border-right: none; border-bottom: none; }
@@ -684,7 +684,7 @@ body {
 }
 
 .callout-box {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #0f2840 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #3a0724 100%);
     color: white;
     padding: 1.5rem;
     border-radius: 8px;
@@ -1112,7 +1112,7 @@ body {
 .mini-book-cover {
     width: 120px;
     height: 160px;
-    background: linear-gradient(135deg, #8b5e3c, #6b3a1f);
+    background: linear-gradient(135deg, #620d3c, #3a0724);
     border-radius: 2px 6px 6px 2px;
     display: flex;
     flex-direction: column;
