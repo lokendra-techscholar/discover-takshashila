@@ -37,6 +37,22 @@ function updateControls() {
     });
 }
 
+function updatePageZIndices() {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach((page, index) => {
+        if (page.classList.contains('flipped')) {
+            // Flipped pages go behind everything
+            page.style.zIndex = 0;
+        } else if (index === currentPage) {
+            // Active/current page on top
+            page.style.zIndex = 10;
+        } else {
+            // Unflipped pages stack in reverse order (lower index = higher z)
+            page.style.zIndex = totalPages - index;
+        }
+    });
+}
+
 function flipToPage(targetPage) {
     if (isAnimating || targetPage === currentPage) return;
     if (targetPage < 0 || targetPage >= totalPages) return;
@@ -54,15 +70,21 @@ function flipToPage(targetPage) {
             const page = pages[i];
             if (page) {
                 setTimeout(() => {
+                    page.style.zIndex = 20; // Bring to front while flipping
                     page.classList.add('flipping');
                     page.classList.add('flipped');
-                    setTimeout(() => page.classList.remove('flipping'), 800);
+                    setTimeout(() => {
+                        page.classList.remove('flipping');
+                        page.style.zIndex = 0; // Send behind after flip
+                    }, 800);
                 }, delay);
                 delay += Math.min(150, 600 / (targetPage - currentPage));
             }
         }
         setTimeout(() => {
+            currentPage = targetPage;
             if (pages[targetPage]) pages[targetPage].classList.add('active');
+            updatePageZIndices();
             isAnimating = false;
         }, delay + 800);
     } else {
@@ -72,15 +94,20 @@ function flipToPage(targetPage) {
             const page = pages[i];
             if (page) {
                 setTimeout(() => {
+                    page.style.zIndex = 20; // Bring to front while flipping
                     page.classList.add('flipping');
                     page.classList.remove('flipped');
-                    setTimeout(() => page.classList.remove('flipping'), 800);
+                    setTimeout(() => {
+                        page.classList.remove('flipping');
+                    }, 800);
                 }, delay);
                 delay += Math.min(150, 600 / (currentPage - targetPage));
             }
         }
         setTimeout(() => {
+            currentPage = targetPage;
             if (pages[targetPage]) pages[targetPage].classList.add('active');
+            updatePageZIndices();
             isAnimating = false;
         }, delay + 800);
     }
@@ -153,12 +180,11 @@ function initScrollAnimations() {
 function initPages() {
     const pages = document.querySelectorAll('.page');
     pages.forEach((page, index) => {
-        // Stack pages so cover is on top
-        page.style.zIndex = totalPages - index;
         if (index === 0) {
             page.classList.add('active');
         }
     });
+    updatePageZIndices();
     updateControls();
 }
 
