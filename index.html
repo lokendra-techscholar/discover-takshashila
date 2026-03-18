@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Takshashila — An Interactive Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing / Cover -->
+    <section id="landing" class="landing">
+        <div class="landing-content">
+            <div class="landing-badge">An Interactive Guide</div>
+            <h1 class="landing-title">
+                <span class="title-discover">Discover</span>
+                <span class="title-takshashila">Takshashila</span>
+            </h1>
+            <p class="landing-subtitle">India's independent centre for research and education in public policy</p>
+            <div class="landing-divider"></div>
+            <p class="landing-quote">"Building the intellectual foundations of an India with global interests."</p>
+            <button class="open-book-btn" onclick="openBook()">
+                <span class="btn-icon">📖</span> Open the Book
+            </button>
+            <div class="landing-hint">Scroll down to explore the story</div>
+        </div>
+        <div class="landing-bg-pattern"></div>
+    </section>
+
+    <!-- Storytelling Timeline Section -->
+    <section id="story-timeline" class="story-section">
+        <div class="story-container">
+            <h2 class="section-heading">The Takshashila Story</h2>
+            <p class="section-subheading">From ancient inspiration to modern impact</p>
+
+            <div class="timeline">
+                <div class="timeline-item" data-year="Ancient">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-card">
+                            <div class="timeline-icon">🏛️</div>
+                            <h3>The Ancient City</h3>
+                            <p>The ancient city of Takshashila (Taxila) was the site of perhaps the world's oldest public policy school — the intellectual fountainhead of Indian statecraft. Chanakya's <em>Arthashastra</em> was composed here, shaping governance thought for millennia.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2007">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content right">
+                        <div class="timeline-card">
+                            <div class="timeline-icon">✍️</div>
+                            <h3>Indian National Interest</h3>
+                            <p>A community of bloggers passionate about India's public policy came together. Recognising India lacked reputable publications with a global outlook, they launched <strong>Pragati</strong>, an online magazine on Indian national interest and strategic affairs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2008">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-card">
+                            <div class="timeline-icon">💡</div>
+                            <h3>The Founding Idea</h3>
+                            <p>Over lunch at the Lee Kuan Yew School of Public Policy in Singapore, <strong>Nitin Pai</strong>, Anand Sampath, and colleagues realised that India needs a public policy school that trains students to engage with the modern world and emerge as civic leaders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2010">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content right">
+                        <div class="timeline-card highlight">
+                            <div class="timeline-icon">🚀</div>
+                            <h3>Takshashila is Born</h3>
+                            <p>Co-founded by <strong>Nitin Pai, Narayan Ramachandran, Sameer Wagle, Mukul Asher, Anantha Nageswaran, Niranjan Rajadhyaksha,</strong> and <strong>Anand Sampath</strong>. Aruna Urs joined as the first employee. Rohini Nilekani became an establishment donor with a meaningful grant.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="Today">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-card highlight">
+                            <div class="timeline-icon">🌏</div>
+                            <h3>A Thriving Institution</h3>
+                            <p><strong>7,000+ alumni</strong> across military, academia, media, politics, bureaucracy, and business. Multiple GCPP specialisations, a Post-Graduate Programme, fellowship programmes, and cutting-edge research in geopolitics, technology, and strategic affairs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Flipbook Section -->
+    <section id="flipbook-section" class="flipbook-section">
+        <div class="flipbook-header">
+            <h2 class="section-heading">The Takshashila Guidebook</h2>
+            <p class="section-subheading">Flip through the pages to explore</p>
+        </div>
+
+        <div class="book-controls top-controls">
+            <button class="nav-btn" id="prevBtn" onclick="prevPage()" disabled>
+                ◀ Previous
+            </button>
+            <span class="page-indicator" id="pageIndicator">Cover</span>
+            <button class="nav-btn" id="nextBtn" onclick="nextPage()">
+                Next ▶
+            </button>
+        </div>
+
+        <div class="book-wrapper">
+            <div class="book" id="book">
+                <!-- Book Cover -->
+                <div class="page cover-page" data-page="0">
+                    <div class="page-inner cover-front">
+                        <div class="cover-ornament top-left"></div>
+                        <div class="cover-ornament top-right"></div>
+                        <div class="cover-ornament bottom-left"></div>
+                        <div class="cover-ornament bottom-right"></div>
+                        <div class="cover-content">
+                            <div class="cover-emblem">🏛️</div>
+                            <h1 class="cover-title">Discover<br>Takshashila</h1>
+                            <div class="cover-line"></div>
+                            <p class="cover-subtitle">An Interactive Guide to India's<br>Leading Public Policy Institution</p>
+                            <div class="cover-footer">
+                                <span>Est. 2010 · Bengaluru, India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 1: What is Takshashila? -->
+                <div class="page" data-page="1">
+                    <div class="page-inner">
+                        <div class="page-number">1</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 1</span>
+                                <h2 class="chapter-title">What is Takshashila?</h2>
+                            </div>
+                            <div class="comic-panel intro-panel">
+                                <div class="speech-bubble narrator">
+                                    <p>Imagine an institution that bridges the gap between citizens and governance...</p>
+                                </div>
+                                <div class="illustration-placeholder">
+                                    <div class="icon-large">🏫</div>
+                                </div>
+                            </div>
+                            <div class="content-block">
+                                <p class="drop-cap">The Takshashila Institution, established in 2010, is an <strong>independent centre for research and education in public policy</strong>. It is a non-partisan, non-profit organisation based in Bengaluru that advocates the values of <em>freedom, openness, tolerance, pluralism, and responsible citizenship</em>.</p>
+                                <div class="highlight-box">
+                                    <div class="highlight-icon">🎯</div>
+                                    <div>
+                                        <strong>Core Mission:</strong> To transform India through better public policies by developing better public servants, civil society leaders, professionals, and informed citizens.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2: The Name -->
+                <div class="page" data-page="2">
+                    <div class="page-inner">
+                        <div class="page-number">2</div>
+                        <div class="page-content">
+                            <h2 class="page-title">Why "Takshashila"?</h2>
+                            <div class="comic-panel">
+                                <div class="two-panel">
+                                    <div class="panel-left">
+                                        <div class="icon-scene">🏛️</div>
+                                        <p class="panel-caption"><strong>Ancient Takshashila</strong> (Taxila) was the site of the world's oldest known university — a beacon of learning in the Indian subcontinent.</p>
+                                    </div>
+                                    <div class="panel-right">
+                                        <div class="icon-scene">📜</div>
+                                        <p class="panel-caption">It was here that <strong>Chanakya</strong> composed the <em>Arthashastra</em>, the foundational text of Indian statecraft and public policy.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="callout-box">
+                                <p>"The ancient city of Takshashila was the intellectual fountainhead of Indian statecraft. The Takshashila Institution derives inspiration from that civilisational lighthouse in the pursuit of its contemporary objectives."</p>
+                            </div>
+                            <div class="fun-fact">
+                                <span class="fact-label">Did you know?</span>
+                                <p>Ancient Takshashila attracted scholars from across Asia. Students of diverse backgrounds studied philosophy, medicine, law, military science, and — most importantly for the modern institution — <strong>the art of governance</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3: Values -->
+                <div class="page" data-page="3">
+                    <div class="page-inner">
+                        <div class="page-number">3</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 2</span>
+                                <h2 class="chapter-title">Values & Principles</h2>
+                            </div>
+                            <div class="values-grid">
+                                <div class="value-card" data-value="freedom">
+                                    <div class="value-icon">🗽</div>
+                                    <h3>Freedom</h3>
+                                    <p>Championing economic freedom and individual liberties as foundations for prosperity.</p>
+                                </div>
+                                <div class="value-card" data-value="openness">
+                                    <div class="value-icon">🌐</div>
+                                    <h3>Openness</h3>
+                                    <p>Promoting an open society where ideas can be freely exchanged and debated.</p>
+                                </div>
+                                <div class="value-card" data-value="tolerance">
+                                    <div class="value-icon">🤝</div>
+                                    <h3>Tolerance</h3>
+                                    <p>Fostering a culture of tolerance and respect for diverse perspectives.</p>
+                                </div>
+                                <div class="value-card" data-value="pluralism">
+                                    <div class="value-icon">🌈</div>
+                                    <h3>Pluralism</h3>
+                                    <p>Celebrating India's pluralistic tradition in policy discourse and engagement.</p>
+                                </div>
+                                <div class="value-card" data-value="citizenship">
+                                    <div class="value-icon">🏅</div>
+                                    <h3>Responsible Citizenship</h3>
+                                    <p>Believing that informed, engaged citizens are the bedrock of a strong republic.</p>
+                                </div>
+                                <div class="value-card" data-value="independence">
+                                    <div class="value-icon">⚖️</div>
+                                    <h3>Independence</h3>
+                                    <p>Maintaining non-partisan independence, putting India's national interest first.</p>
+                                </div>
+                            </div>
+                            <div class="comic-panel small-panel">
+                                <div class="speech-bubble thought">
+                                    <p>"We persevere to elevate the standards of policy debate and make a clear distinction between personal opinion and institutional positions."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 4: The School - GCPP -->
+                <div class="page" data-page="4">
+                    <div class="page-inner">
+                        <div class="page-number">4</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 3</span>
+                                <h2 class="chapter-title">The Policy School</h2>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="speech-bubble narrator wide">
+                                    <p>The Takshashila Policy School offers multiple pathways to understanding public policy — from 12-week certificates to a full 48-week post-graduate programme.</p>
+                                </div>
+                            </div>
+                            <div class="programme-showcase">
+                                <div class="programme-card" onclick="toggleProgramme(this)">
+                                    <div class="programme-header">
+                                        <div class="programme-icon">📋</div>
+                                        <h3>GCPP: Advanced Public Policy</h3>
+                                        <span class="programme-duration">12 weeks</span>
+                                    </div>
+                                    <div class="programme-details">
+                                        <p>Equips participants with tools to deepen understanding of economic and governance systems. Delivers clear frameworks for how politics and economics intersect.</p>
+                                        <div class="programme-tags">
+                                            <span class="tag">Policy Analysis</span>
+                                            <span class="tag">Economic Reasoning</span>
+                                            <span class="tag">Governance</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="programme-card" onclick="toggleProgramme(this)">
+                                    <div class="programme-header">
+                                        <div class="programme-icon">🛡️</div>
+                                        <h3>GCPP: Defence & Foreign Affairs</h3>
+                                        <span class="programme-duration">12 weeks</span>
+                                    </div>
+                                    <div class="programme-details">
+                                        <p>Introduces geopolitics, strategic studies, and economic reasoning. Features a unique mix of military officers and civilians in every cohort.</p>
+                                        <div class="programme-tags">
+                                            <span class="tag">Geopolitics</span>
+                                            <span class="tag">Strategic Studies</span>
+                                            <span class="tag">Foreign Policy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="programme-card" onclick="toggleProgramme(this)">
+                                    <div class="programme-header">
+                                        <div class="programme-icon">💻</div>
+                                        <h3>GCPP: Technology & Policy</h3>
+                                        <span class="programme-duration">12 weeks</span>
+                                    </div>
+                                    <div class="programme-details">
+                                        <p>For technologists, lawyers, and policymakers. Covers economics of tech platforms, political economy, ethical orientation, and public discourse leadership.</p>
+                                        <div class="programme-tags">
+                                            <span class="tag">Tech Platforms</span>
+                                            <span class="tag">AI Policy</span>
+                                            <span class="tag">Digital Governance</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5: PGP & More -->
+                <div class="page" data-page="5">
+                    <div class="page-inner">
+                        <div class="page-number">5</div>
+                        <div class="page-content">
+                            <h2 class="page-title">Beyond the GCPP</h2>
+                            <div class="feature-block pgp-block">
+                                <div class="feature-icon-large">🎓</div>
+                                <h3>Post-Graduate Programme (PGP)</h3>
+                                <p>A comprehensive <strong>48-week specialised programme</strong> offering a multi-disciplinary approach to public policy. The PGP encompasses theoretical and empirical aspects, with a diverse range of course choices for deep expertise.</p>
+                                <div class="stat-row">
+                                    <div class="stat">
+                                        <span class="stat-number">48</span>
+                                        <span class="stat-label">Weeks</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-number">Multi</span>
+                                        <span class="stat-label">Disciplinary</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-number">Deep</span>
+                                        <span class="stat-label">Specialisation</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="two-column">
+                                <div class="column">
+                                    <div class="mini-card">
+                                        <h4>🏆 Fellowship Programmes</h4>
+                                        <p>Build high-quality scholarship and knowledge networks across domains in India.</p>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="mini-card">
+                                        <h4>🎮 Nagara — The Democracy</h4>
+                                        <p>A governance simulation game developed at Takshashila, used in GCPP workshops.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="highlight-box alumni">
+                                <div class="highlight-icon">👥</div>
+                                <div>
+                                    <strong>7,000+ Alumni</strong> excelling across military, academia, media, politics, bureaucracy, and businesses of all kinds. The first GCPP convocation was held at India Habitat Centre, New Delhi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 6: Research Areas -->
+                <div class="page" data-page="6">
+                    <div class="page-inner">
+                        <div class="page-number">6</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 4</span>
+                                <h2 class="chapter-title">Research & Ideas</h2>
+                            </div>
+                            <div class="research-grid">
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">🔬</div>
+                                        <h3>High-Tech Geopolitics</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>Explores the geopolitics of AI, quantum computing, semiconductors (Siliconpolitik Project), telecom, and cybersecurity from an Indian national interest perspective.</p>
+                                    </div>
+                                </div>
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">🧬</div>
+                                        <h3>Advanced Biology</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>Facilitates dialogue on life science policy and develops actionable policies for the Indian bioeconomy.</p>
+                                    </div>
+                                </div>
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">🗺️</div>
+                                        <h3>Strategic Studies</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>Examines ways for India to shape its external environment to enable security and prosperity, covering Indo-Pacific geopolitics and defence economics.</p>
+                                    </div>
+                                </div>
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">📊</div>
+                                        <h3>Economic Policy</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>Based on the premise that India's national interest is best served by high economic growth. Researches fiscal policy, trade, and market reforms.</p>
+                                    </div>
+                                </div>
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">🛰️</div>
+                                        <h3>Geospatial Research</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>Applies mapping and spatial analysis to understand real-world problems, including military technologies and geographic strategy.</p>
+                                    </div>
+                                </div>
+                                <div class="research-card" onclick="toggleResearch(this)">
+                                    <div class="research-front">
+                                        <div class="research-icon">📰</div>
+                                        <h3>IPPR Journal</h3>
+                                        <span class="click-hint">Click to explore</span>
+                                    </div>
+                                    <div class="research-back">
+                                        <p>The Indian Public Policy Review — a peer-reviewed, bi-monthly, open-access journal published with support from the Infosys Foundation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 7: The People -->
+                <div class="page" data-page="7">
+                    <div class="page-inner">
+                        <div class="page-number">7</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 5</span>
+                                <h2 class="chapter-title">The People</h2>
+                            </div>
+                            <div class="people-showcase">
+                                <div class="person-card featured">
+                                    <div class="person-avatar">👤</div>
+                                    <div class="person-info">
+                                        <h3>Nitin Pai</h3>
+                                        <span class="person-role">Co-Founder & Director</span>
+                                        <p>Gold medalist from NUS Lee Kuan Yew School of Public Policy. Research includes geopolitics of the Indo-Pacific, defence economics, and politics of radically networked societies. Columns in Business Standard and Rajasthan Patrika.</p>
+                                    </div>
+                                </div>
+                                <div class="person-card featured">
+                                    <div class="person-avatar">👤</div>
+                                    <div class="person-info">
+                                        <h3>Pranay Kotasthane</h3>
+                                        <span class="person-role">Deputy Director</span>
+                                        <p>Research on high-tech geopolitics and radically networked societies. Co-writes <em>Anticipating the Unintended</em> newsletter and co-hosts <em>Puliyabaazi</em>, a popular Hindi-Urdu podcast on policy.</p>
+                                    </div>
+                                </div>
+                                <div class="people-grid-small">
+                                    <div class="person-mini">
+                                        <div class="mini-avatar">👤</div>
+                                        <strong>Anupam Manur</strong>
+                                        <span>Assistant Professor</span>
+                                    </div>
+                                    <div class="person-mini">
+                                        <div class="mini-avatar">👤</div>
+                                        <strong>Shambhavi Naik</strong>
+                                        <span>Head of Research</span>
+                                    </div>
+                                    <div class="person-mini">
+                                        <div class="mini-avatar">👤</div>
+                                        <strong>Anand Arni</strong>
+                                        <span>Distinguished Fellow</span>
+                                    </div>
+                                    <div class="person-mini">
+                                        <div class="mini-avatar">👤</div>
+                                        <strong>Lt Gen Prakash Menon</strong>
+                                        <span>Strategic Studies Dir.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 8: We The Citizens -->
+                <div class="page" data-page="8">
+                    <div class="page-inner">
+                        <div class="page-number">8</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 6</span>
+                                <h2 class="chapter-title">We, The Citizens</h2>
+                            </div>
+                            <div class="book-feature">
+                                <div class="book-cover-display">
+                                    <div class="mini-book-cover">
+                                        <span class="mini-book-title">We, The<br>Citizens</span>
+                                        <span class="mini-book-subtitle">Strengthening the<br>Indian Republic</span>
+                                    </div>
+                                </div>
+                                <div class="book-info">
+                                    <p>A groundbreaking <strong>graphic book</strong> by <strong>Khyati Pathak</strong>, <strong>Anupam Manur</strong>, and <strong>Pranay Kotasthane</strong> that uses comics and illustrations to make public policy accessible to everyone.</p>
+                                </div>
+                            </div>
+                            <div class="comic-strip">
+                                <div class="comic-frame">
+                                    <div class="frame-content">
+                                        <div class="speech-bubble question">What is a democracy?</div>
+                                        <div class="speech-bubble answer">How is a republic different from a monarchy?</div>
+                                        <div class="speech-bubble question">How do state, market, and society interact?</div>
+                                    </div>
+                                    <p class="frame-caption">The book asks pertinent questions that touch every citizen's life — interspersed with pop culture and historical nuances, from Birbal to Rajnikanth to Louis XIV!</p>
+                                </div>
+                            </div>
+                            <div class="highlight-box book-highlight">
+                                <div class="highlight-icon">📚</div>
+                                <div>
+                                    <strong>Published by Penguin Books</strong> · 240 pages · Available in paperback and Kindle. Making policy fun — because every citizen deserves to understand how governance works.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 9: Initiatives & Impact -->
+                <div class="page" data-page="9">
+                    <div class="page-inner">
+                        <div class="page-number">9</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 7</span>
+                                <h2 class="chapter-title">Impact & Initiatives</h2>
+                            </div>
+                            <div class="initiatives-list">
+                                <div class="initiative">
+                                    <div class="initiative-icon">📡</div>
+                                    <div class="initiative-info">
+                                        <h4>Anticipating the Unintended</h4>
+                                        <p>A weekly newsletter on public policy ideas and frameworks, exploring the unseen consequences of policy decisions.</p>
+                                    </div>
+                                </div>
+                                <div class="initiative">
+                                    <div class="initiative-icon">🎙️</div>
+                                    <div class="initiative-info">
+                                        <h4>Puliyabaazi Podcast</h4>
+                                        <p>A popular Hindi-Urdu podcast on politics, policy, and technology — making policy discourse accessible in Indian languages.</p>
+                                    </div>
+                                </div>
+                                <div class="initiative">
+                                    <div class="initiative-icon">💬</div>
+                                    <div class="initiative-info">
+                                        <h4>Tankscrub</h4>
+                                        <p>An in-house weekly discussion on policy topics, held every Thursday since inception — the heartbeat of intellectual discourse at Takshashila.</p>
+                                    </div>
+                                </div>
+                                <div class="initiative">
+                                    <div class="initiative-icon">🎪</div>
+                                    <div class="initiative-info">
+                                        <h4>Shalas</h4>
+                                        <p>Unconferences with an innovative, informal format held across India — bringing policy discussions out of boardrooms and into communities.</p>
+                                    </div>
+                                </div>
+                                <div class="initiative">
+                                    <div class="initiative-icon">🏢</div>
+                                    <div class="initiative-info">
+                                        <h4>Executive Programmes</h4>
+                                        <p>Specialised programmes for corporate professionals, including Strategic Government Engagement for corporate executives (launched with the Tata Group).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 10: How to Engage -->
+                <div class="page" data-page="10">
+                    <div class="page-inner">
+                        <div class="page-number">10</div>
+                        <div class="page-content">
+                            <div class="chapter-header">
+                                <span class="chapter-number">Chapter 8</span>
+                                <h2 class="chapter-title">Join the Journey</h2>
+                            </div>
+                            <div class="engage-content">
+                                <div class="comic-panel">
+                                    <div class="speech-bubble narrator wide">
+                                        <p>Takshashila believes that every citizen can — and should — be part of India's policy discourse. Here's how you can engage:</p>
+                                    </div>
+                                </div>
+                                <div class="engage-grid">
+                                    <a href="https://school.takshashila.org.in/" target="_blank" rel="noopener" class="engage-card">
+                                        <div class="engage-icon">🎓</div>
+                                        <h4>Enrol in a Programme</h4>
+                                        <p>Join the GCPP or PGP and gain frameworks for understanding public policy.</p>
+                                    </a>
+                                    <a href="https://takshashila.org.in/" target="_blank" rel="noopener" class="engage-card">
+                                        <div class="engage-icon">📖</div>
+                                        <h4>Read the Research</h4>
+                                        <p>Access policy papers, discussion documents, and the IPPR journal.</p>
+                                    </a>
+                                    <a href="https://takshashila.org.in/" target="_blank" rel="noopener" class="engage-card">
+                                        <div class="engage-icon">🤝</div>
+                                        <h4>Support the Mission</h4>
+                                        <p>Contribute to building the intellectual foundations of India's future.</p>
+                                    </a>
+                                    <a href="https://takshashila.org.in/" target="_blank" rel="noopener" class="engage-card">
+                                        <div class="engage-icon">🗣️</div>
+                                        <h4>Spread the Word</h4>
+                                        <p>Share Takshashila's work, attend Shalas, and become a policy-aware citizen.</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="final-quote">
+                                <blockquote>
+                                    "What they do is nothing less than a great public service to India."
+                                    <cite>— Amit Varma, on Takshashila</cite>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Cover -->
+                <div class="page cover-page" data-page="11">
+                    <div class="page-inner cover-back">
+                        <div class="cover-ornament top-left"></div>
+                        <div class="cover-ornament top-right"></div>
+                        <div class="cover-ornament bottom-left"></div>
+                        <div class="cover-ornament bottom-right"></div>
+                        <div class="back-cover-content">
+                            <div class="cover-emblem">🏛️</div>
+                            <h2>The Takshashila Institution</h2>
+                            <p class="back-tagline">Independent. Non-partisan. Non-profit.</p>
+                            <div class="cover-line"></div>
+                            <div class="back-links">
+                                <p><strong>takshashila.org.in</strong></p>
+                                <p><strong>school.takshashila.org.in</strong></p>
+                            </div>
+                            <p class="back-location">Bengaluru, India</p>
+                            <div class="back-values">
+                                Freedom · Openness · Tolerance · Pluralism · Responsible Citizenship
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-controls bottom-controls">
+            <button class="nav-btn" id="prevBtn2" onclick="prevPage()" disabled>
+                ◀ Previous
+            </button>
+            <span class="page-indicator" id="pageIndicator2">Cover</span>
+            <button class="nav-btn" id="nextBtn2" onclick="nextPage()">
+                Next ▶
+            </button>
+        </div>
+
+        <!-- Page thumbnails -->
+        <div class="page-thumbnails" id="pageThumbnails">
+            <div class="thumb active" onclick="goToPage(0)" title="Cover">Cover</div>
+            <div class="thumb" onclick="goToPage(1)" title="What is Takshashila?">1</div>
+            <div class="thumb" onclick="goToPage(2)" title="Why the Name?">2</div>
+            <div class="thumb" onclick="goToPage(3)" title="Values">3</div>
+            <div class="thumb" onclick="goToPage(4)" title="Policy School">4</div>
+            <div class="thumb" onclick="goToPage(5)" title="Beyond GCPP">5</div>
+            <div class="thumb" onclick="goToPage(6)" title="Research">6</div>
+            <div class="thumb" onclick="goToPage(7)" title="People">7</div>
+            <div class="thumb" onclick="goToPage(8)" title="We The Citizens">8</div>
+            <div class="thumb" onclick="goToPage(9)" title="Impact">9</div>
+            <div class="thumb" onclick="goToPage(10)" title="Join">10</div>
+            <div class="thumb" onclick="goToPage(11)" title="Back Cover">Back</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>This interactive guide is an independent educational resource about the Takshashila Institution.</p>
+            <p>Visit <a href="https://takshashila.org.in" target="_blank" rel="noopener">takshashila.org.in</a> and <a href="https://school.takshashila.org.in" target="_blank" rel="noopener">school.takshashila.org.in</a> for official information.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
