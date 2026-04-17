@@ -176,26 +176,6 @@ function toggleResearch(card) {
     card.classList.toggle('flipped-card');
 }
 
-// ---- Scroll Animations ----
-
-function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    // Timeline items
-    document.querySelectorAll('.timeline-item').forEach(item => {
-        observer.observe(item);
-    });
-}
-
 // ---- Page Z-Index Management ----
 
 function initPages() {
@@ -295,7 +275,6 @@ function initValueCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initPages();
-    initScrollAnimations();
     initTouchSupport();
     initClickToFlip();
     initLandingParallax();
