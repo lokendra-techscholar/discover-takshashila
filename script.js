@@ -40,14 +40,16 @@ function updateControls() {
 function updatePageZIndices() {
     const pages = document.querySelectorAll('.page');
     pages.forEach((page, index) => {
+        // Clear any inline transition so z-index changes are immediate
         if (page.classList.contains('flipped')) {
-            // Flipped pages go behind everything
-            page.style.zIndex = 0;
+            // Flipped pages: stack in order so later-flipped pages sit on top
+            page.style.zIndex = index;
         } else if (index === currentPage) {
-            // Active/current page on top
-            page.style.zIndex = 10;
+            // Active/current page on top of unflipped stack
+            page.style.zIndex = totalPages + 5;
         } else {
             // Unflipped pages stack in reverse order (lower index = higher z)
+            // so the next page to flip is always on top
             page.style.zIndex = totalPages - index;
         }
     });
@@ -68,57 +70,70 @@ function flipToPage(targetPage) {
     // Reset active states
     pages.forEach(p => p.classList.remove('active'));
 
-    // Immediately give the target page a high z-index so it's visible
-    // throughout the entire transition (prevents other pages bleeding through)
+    // Set z-indices BEFORE animation starts to prevent bleed-through:
+    // - Target page stays high so it's always visible beneath flipping pages
+    // - All non-participating pages get pushed to background
+    pages.forEach((page, index) => {
+        if (page.classList.contains('flipped') && (targetPage > prevPage ? true : index < targetPage)) {
+            page.style.zIndex = 0;
+        }
+    });
     if (pages[targetPage]) {
-        pages[targetPage].style.zIndex = 15;
+        pages[targetPage].style.zIndex = totalPages + 2;
     }
 
     if (targetPage > prevPage) {
-        // Flip forward - flip all pages from current to target-1
+        // Flip forward
         let delay = 0;
+        const stepDelay = Math.min(150, 600 / (targetPage - prevPage));
         for (let i = prevPage; i < targetPage; i++) {
             const page = pages[i];
             if (page) {
+                const d = delay;
                 setTimeout(() => {
-                    page.style.zIndex = 20; // Bring to front while flipping
+                    // Flipping page must be above target page
+                    page.style.zIndex = totalPages + 10;
                     page.classList.add('flipping');
                     page.classList.add('flipped');
-                    setTimeout(() => {
-                        page.classList.remove('flipping');
-                        page.style.zIndex = 0; // Send behind after flip
-                    }, 800);
-                }, delay);
-                delay += Math.min(150, 600 / (targetPage - prevPage));
+                }, d);
+                // After flip completes, push behind
+                setTimeout(() => {
+                    page.classList.remove('flipping');
+                    page.style.zIndex = i; // flipped pages stack by index
+                }, d + 800);
+                delay += stepDelay;
             }
         }
         setTimeout(() => {
             if (pages[targetPage]) pages[targetPage].classList.add('active');
             updatePageZIndices();
             isAnimating = false;
-        }, delay + 800);
+        }, delay + 850);
     } else {
-        // Flip backward - unflip all pages from current-1 to target
+        // Flip backward
         let delay = 0;
+        const stepDelay = Math.min(150, 600 / (prevPage - targetPage));
         for (let i = prevPage - 1; i >= targetPage; i--) {
             const page = pages[i];
             if (page) {
+                const d = delay;
                 setTimeout(() => {
-                    page.style.zIndex = 20; // Bring to front while flipping
+                    // Unflipping page must be on top
+                    page.style.zIndex = totalPages + 10;
                     page.classList.add('flipping');
                     page.classList.remove('flipped');
-                    setTimeout(() => {
-                        page.classList.remove('flipping');
-                    }, 800);
-                }, delay);
-                delay += Math.min(150, 600 / (prevPage - targetPage));
+                }, d);
+                setTimeout(() => {
+                    page.classList.remove('flipping');
+                }, d + 800);
+                delay += stepDelay;
             }
         }
         setTimeout(() => {
             if (pages[targetPage]) pages[targetPage].classList.add('active');
             updatePageZIndices();
             isAnimating = false;
-        }, delay + 800);
+        }, delay + 850);
     }
 }
 
@@ -159,26 +174,6 @@ function toggleProgramme(card) {
 
 function toggleResearch(card) {
     card.classList.toggle('flipped-card');
-}
-
-// ---- Scroll Animations ----
-
-function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    // Timeline items
-    document.querySelectorAll('.timeline-item').forEach(item => {
-        observer.observe(item);
-    });
 }
 
 // ---- Page Z-Index Management ----
@@ -280,7 +275,6 @@ function initValueCards() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initPages();
-    initScrollAnimations();
     initTouchSupport();
     initClickToFlip();
     initLandingParallax();

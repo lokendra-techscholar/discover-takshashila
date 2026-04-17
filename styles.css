@@ -188,130 +188,6 @@ body {
 }
 
 /* ========================================
-   Storytelling Timeline
-   ======================================== */
-.story-section {
-    padding: 6rem 2rem;
-    background: var(--color-bg-warm);
-}
-
-.story-container {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.timeline {
-    position: relative;
-    padding: 2rem 0;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(to bottom, var(--color-accent-light), var(--color-accent), var(--color-accent-light));
-    transform: translateX(-50%);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease-out;
-}
-
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.timeline-marker {
-    position: absolute;
-    left: 50%;
-    top: 1.5rem;
-    width: 16px;
-    height: 16px;
-    background: var(--color-accent);
-    border: 3px solid var(--color-bg-warm);
-    border-radius: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    box-shadow: 0 0 0 4px var(--color-accent-light);
-}
-
-.timeline-item::before {
-    content: attr(data-year);
-    position: absolute;
-    left: 50%;
-    top: 0.8rem;
-    transform: translateX(-50%) translateY(-2.2rem);
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    background: var(--color-bg-warm);
-    padding: 0.15rem 0.75rem;
-    border-radius: 2rem;
-    border: 1.5px solid var(--color-accent-light);
-    z-index: 3;
-    white-space: nowrap;
-}
-
-.timeline-content {
-    width: 42%;
-}
-
-.timeline-content.left {
-    margin-right: auto;
-    padding-right: 2rem;
-}
-
-.timeline-content.right {
-    margin-left: auto;
-    padding-left: 2rem;
-}
-
-.timeline-card {
-    background: var(--color-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    box-shadow: 0 2px 12px var(--color-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.timeline-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.timeline-card.highlight {
-    border-left: 4px solid var(--color-accent);
-}
-
-.timeline-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.timeline-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--color-primary);
-    margin-bottom: 0.5rem;
-}
-
-.timeline-card p {
-    font-size: 0.95rem;
-    color: var(--color-text-light);
-    line-height: 1.6;
-}
-
-/* ========================================
    Flipbook Section
    ======================================== */
 .flipbook-section {
@@ -338,6 +214,9 @@ body {
     width: var(--page-width);
     height: var(--page-height);
     transform-style: preserve-3d;
+    background: #ede6d6;
+    border-radius: 2px 8px 8px 2px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Pages */
@@ -346,15 +225,25 @@ body {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1),
-                opacity 0.4s ease;
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
     transform-origin: left center;
-    backface-visibility: hidden;
     cursor: default;
 }
 
 .page.flipped {
     transform: rotateY(-180deg);
+}
+
+/* Back face of each page — solid cover prevents bleed-through */
+.page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f5f0e8 0%, #ede6d6 100%);
+    border-radius: 2px 8px 8px 2px;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .page-inner {
@@ -371,6 +260,7 @@ body {
     overflow-x: hidden;
     padding: 2.5rem 2rem;
     backface-visibility: hidden;
+    z-index: 1;
     /* Subtle paper texture */
     background-image:
         linear-gradient(to right, rgba(0,0,0,0.01) 0px, transparent 1px),
@@ -1423,26 +1313,6 @@ body {
    Responsive Design
    ======================================== */
 @media (max-width: 768px) {
-    .timeline::before {
-        left: 20px;
-    }
-
-    .timeline-content.left,
-    .timeline-content.right {
-        width: calc(100% - 50px);
-        margin-left: 50px;
-        padding-left: 1rem;
-        padding-right: 0;
-    }
-
-    .timeline-marker {
-        left: 20px;
-    }
-
-    .timeline-item::before {
-        left: 20px;
-    }
-
     .page-inner {
         padding: 1.5rem 1.2rem;
     }
