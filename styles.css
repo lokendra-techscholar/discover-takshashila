@@ -921,6 +921,16 @@ body {
     flex-shrink: 0;
 }
 
+.person-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-accent);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
 .person-info h3 {
     font-family: var(--font-display);
     font-size: 1rem;
