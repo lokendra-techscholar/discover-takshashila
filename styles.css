@@ -252,8 +252,8 @@ body {
     pointer-events: none;
 }
 
-/* Pages — positioned on right half, flip to left */
-.page {
+/* Leaves — each leaf has a front (right page) and back (left page) */
+.leaf {
     position: absolute;
     right: 0;
     top: 0;
@@ -265,54 +265,45 @@ body {
     cursor: default;
 }
 
-.page.flipped {
+.leaf.flipped {
     transform: rotateY(-180deg);
 }
 
-/* Back face of each page — visible when flipped onto the left side */
-.page::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #fffef5 0%, #f5f0e8 50%, #ede6d6 100%);
-    border-radius: 0 8px 8px 0;
-    transform: rotateY(180deg);
-    backface-visibility: hidden;
-    box-shadow: inset 2px 0 6px rgba(0, 0, 0, 0.04);
-}
-
-.page-inner {
+.leaf-front, .leaf-back {
     position: absolute;
     width: 100%;
     height: 100%;
     background: var(--color-bg-page);
-    border-radius: 0 8px 8px 0;
-    box-shadow:
-        4px 0 8px rgba(0, 0, 0, 0.04),
-        inset -2px 0 4px rgba(0, 0, 0, 0.02);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 2rem 1.8rem;
+    overflow: hidden;
+    padding: 1.6rem 1.5rem;
     backface-visibility: hidden;
-    z-index: 1;
     background-image:
         linear-gradient(to right, rgba(0,0,0,0.01) 0px, transparent 1px),
         linear-gradient(to bottom, transparent 98%, rgba(0,0,0,0.02) 100%);
 }
 
+.leaf-front {
+    border-radius: 0 8px 8px 0;
+    box-shadow:
+        4px 0 8px rgba(0, 0, 0, 0.04),
+        inset -2px 0 4px rgba(0, 0, 0, 0.02);
+    z-index: 1;
+}
+
+.leaf-back {
+    transform: rotateY(180deg);
+    border-radius: 8px 0 0 8px;
+    box-shadow:
+        -4px 0 8px rgba(0, 0, 0, 0.04),
+        inset 2px 0 4px rgba(0, 0, 0, 0.02);
+}
+
 /* Scrollbar styling for pages */
-.page-inner::-webkit-scrollbar {
-    width: 4px;
+.leaf-front::-webkit-scrollbar,
+.leaf-back::-webkit-scrollbar {
+    width: 0px;
 }
 
-.page-inner::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.page-inner::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: 2px;
-}
 
 .page-number {
     position: absolute;
@@ -430,8 +421,8 @@ body {
    Page Content Styles
    ======================================== */
 .chapter-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--color-accent-light);
 }
 
@@ -446,26 +437,26 @@ body {
 
 .chapter-title {
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     color: var(--color-primary);
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
 }
 
 .page-title {
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
     color: var(--color-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
     text-align: center;
 }
 
 .content-block {
-    margin: 1.5rem 0;
+    margin: 0.8rem 0;
 }
 
 .drop-cap::first-letter {
     font-family: var(--font-display);
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     float: left;
     line-height: 0.8;
     padding-right: 0.15em;
@@ -477,8 +468,8 @@ body {
    Comic-Style Panels (We The Citizens inspired)
    ======================================== */
 .comic-panel {
-    margin: 1.5rem 0;
-    padding: 1rem;
+    margin: 0.6rem 0;
+    padding: 0.6rem;
     border-radius: 8px;
     background: var(--color-bg-warm);
     border: 2px solid var(--color-border);
@@ -1347,10 +1338,6 @@ body {
     50% { opacity: 0.8; }
 }
 
-/* Page flip animation enhancement */
-.page.flipping {
-    /* z-index managed by JS */
-}
 
 /* ========================================
    Responsive Design
@@ -1360,8 +1347,12 @@ body {
         width: var(--page-width);
     }
 
-    .page {
+    .leaf {
         width: 100%;
+    }
+
+    .leaf-back {
+        display: none;
     }
 
     .book::before,
@@ -1369,9 +1360,9 @@ body {
         display: none;
     }
 
-    .page-inner {
+    .leaf-front, .leaf-back {
         padding: 1.5rem 1.2rem;
-        border-radius: 0 8px 8px 0;
+        border-radius: 8px;
     }
 
     .values-grid {
