@@ -24,8 +24,8 @@
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
     --font-serif: 'Source Serif 4', Georgia, serif;
-    --page-width: min(680px, 90vw);
-    --page-height: min(880px, 80vh);
+    --page-width: min(520px, 45vw);
+    --page-height: min(720px, 78vh);
     --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -200,29 +200,64 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Book Wrapper */
+/* Book Wrapper — double-page spread */
 .book-wrapper {
     display: flex;
     justify-content: center;
-    perspective: 2000px;
+    perspective: 2500px;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1100px;
 }
 
 .book {
     position: relative;
-    width: var(--page-width);
+    width: calc(var(--page-width) * 2);
     height: var(--page-height);
     transform-style: preserve-3d;
     background: #ede6d6;
-    border-radius: 2px 8px 8px 2px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.15),
+        0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Pages */
+.book::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 3%;
+    bottom: 3%;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.08), rgba(0,0,0,0.12), rgba(0,0,0,0.08), transparent);
+    transform: translateX(-50%);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.book::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    transform: translateX(-50%);
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(0,0,0,0.03) 35%,
+        rgba(0,0,0,0.06) 50%,
+        rgba(0,0,0,0.03) 65%,
+        transparent 100%);
+    z-index: 99;
+    pointer-events: none;
+}
+
+/* Pages — positioned on right half, flip to left */
 .page {
     position: absolute;
-    width: 100%;
+    right: 0;
+    top: 0;
+    width: 50%;
     height: 100%;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -234,16 +269,16 @@ body {
     transform: rotateY(-180deg);
 }
 
-/* Back face of each page — solid cover prevents bleed-through */
+/* Back face of each page — visible when flipped onto the left side */
 .page::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #f5f0e8 0%, #ede6d6 100%);
-    border-radius: 2px 8px 8px 2px;
+    background: linear-gradient(135deg, #fffef5 0%, #f5f0e8 50%, #ede6d6 100%);
+    border-radius: 0 8px 8px 0;
     transform: rotateY(180deg);
     backface-visibility: hidden;
-    box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 2px 0 6px rgba(0, 0, 0, 0.04);
 }
 
 .page-inner {
@@ -251,17 +286,15 @@ body {
     width: 100%;
     height: 100%;
     background: var(--color-bg-page);
-    border-radius: 2px 8px 8px 2px;
+    border-radius: 0 8px 8px 0;
     box-shadow:
-        4px 0 8px rgba(0, 0, 0, 0.05),
-        0 2px 16px rgba(0, 0, 0, 0.08),
+        4px 0 8px rgba(0, 0, 0, 0.04),
         inset -2px 0 4px rgba(0, 0, 0, 0.02);
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.8rem;
     backface-visibility: hidden;
     z-index: 1;
-    /* Subtle paper texture */
     background-image:
         linear-gradient(to right, rgba(0,0,0,0.01) 0px, transparent 1px),
         linear-gradient(to bottom, transparent 98%, rgba(0,0,0,0.02) 100%);
@@ -1323,8 +1356,22 @@ body {
    Responsive Design
    ======================================== */
 @media (max-width: 768px) {
+    .book {
+        width: var(--page-width);
+    }
+
+    .page {
+        width: 100%;
+    }
+
+    .book::before,
+    .book::after {
+        display: none;
+    }
+
     .page-inner {
         padding: 1.5rem 1.2rem;
+        border-radius: 0 8px 8px 0;
     }
 
     .values-grid {
