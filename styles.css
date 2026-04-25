@@ -325,7 +325,6 @@ body {
     background: linear-gradient(135deg, var(--color-primary) 0%, #3a0724 100%);
     color: white;
     text-align: center;
-    position: relative;
     overflow: hidden;
 }
 
