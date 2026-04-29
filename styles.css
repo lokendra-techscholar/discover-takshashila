@@ -549,6 +549,13 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.icon-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .two-panel {
     display: grid;
     grid-template-columns: 1fr 1fr;
