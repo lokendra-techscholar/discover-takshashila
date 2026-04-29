@@ -1512,15 +1512,43 @@ a.book-feature:hover {
    ======================================== */
 @media (max-width: 768px) {
     .book {
-        width: var(--page-width);
+        width: calc(100vw - 2rem);
+        max-width: 500px;
+        height: 80vh;
+        max-height: 700px;
+        background: var(--color-bg-page);
+        border-radius: 12px;
     }
 
     .leaf {
         width: 100%;
+        transform-style: flat;
+        transition: none;
+        transform: none !important;
+        right: auto;
+        left: 0;
+        display: none;
     }
 
-    .leaf-back {
+    .leaf.flipped {
+        transform: none !important;
+    }
+
+    .leaf.mobile-visible {
+        display: block;
+    }
+
+    .leaf-front, .leaf-back {
+        backface-visibility: visible;
+        transform: none;
+        border-radius: 12px;
+        padding: 1.5rem 1.2rem;
         display: none;
+    }
+
+    .leaf-front.mobile-active,
+    .leaf-back.mobile-active {
+        display: block;
     }
 
     .book::before,
@@ -1528,17 +1556,21 @@ a.book-feature:hover {
         display: none;
     }
 
-    .leaf-front, .leaf-back {
-        padding: 1.5rem 1.2rem;
-        border-radius: 8px;
+    .book-wrapper {
+        perspective: none;
+    }
+
+    .flipbook-header {
+        padding: 0 1rem;
+    }
+
+    .section-heading {
+        font-size: 1.4rem;
     }
 
     .values-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .research-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
     }
 
     .two-column {
@@ -1547,44 +1579,134 @@ a.book-feature:hover {
 
     .two-panel {
         grid-template-columns: 1fr;
+        gap: 0.5rem;
     }
 
-    .book-feature {
+    .book-feature, a.book-feature {
         flex-direction: column;
         text-align: center;
+        gap: 0.8rem;
     }
 
     .engage-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .people-grid-small {
-        grid-template-columns: 1fr;
-    }
-
-    .comic-panel.intro-panel {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .stat-row {
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .values-grid {
         grid-template-columns: 1fr 1fr;
         gap: 0.5rem;
     }
 
-    .research-grid {
-        grid-template-columns: 1fr 1fr;
+    .person-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .person-photo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .programme-header h3 {
+        font-size: 0.85rem;
+    }
+
+    .programme-details.show {
+        max-height: 100px;
+        padding: 0.3rem 0.8rem 0.6rem;
+    }
+
+    .programme-details p {
+        font-size: 0.75rem;
     }
 
     .nav-btn {
         padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         min-width: 90px;
+    }
+
+    .page-thumbnails {
+        gap: 0.3rem;
+    }
+
+    .thumb {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .cover-title {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+    }
+
+    .chapter-title {
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
+    }
+
+    .page-title {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+
+    .growth-timeline {
+        gap: 0;
+        padding: 0.6rem 0.3rem;
+    }
+
+    .growth-label {
+        font-size: 0.6rem;
+        max-width: 65px;
+    }
+
+    .growth-connector {
+        width: 12px;
+    }
+
+    .callout-box {
+        padding: 1rem;
+    }
+
+    .callout-box p {
+        font-size: 0.85rem;
+    }
+
+    .feature-block {
+        padding: 1rem;
+    }
+
+    .mini-book-cover {
+        width: 90px;
+        height: 120px;
+    }
+
+    .team-description-box {
+        padding: 0.8rem;
+    }
+
+    .team-description-box p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .book {
+        width: calc(100vw - 1rem);
+        height: 78vh;
+    }
+
+    .engage-grid {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+    }
+
+    .value-card h3 {
+        font-size: 0.75rem;
+    }
+
+    .value-card p {
+        font-size: 0.65rem;
     }
 }
