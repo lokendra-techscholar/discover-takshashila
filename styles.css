@@ -693,11 +693,14 @@ body {
 }
 
 .programme-card {
+    display: block;
     border: 1.5px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
     transition: border-color 0.3s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .programme-card:hover {
@@ -789,6 +792,17 @@ body {
     font-size: 1.3rem;
     color: var(--color-primary);
     margin-bottom: 0.5rem;
+}
+
+.feature-block h3 a,
+.mini-card h4 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.feature-block h3 a:hover,
+.mini-card h4 a:hover {
+    text-decoration: underline;
 }
 
 .feature-block p {
@@ -939,6 +953,25 @@ body {
     margin-bottom: 0.8rem;
     border: 1px solid var(--color-border);
     background: var(--color-bg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+}
+
+a.person-card:hover {
+    border-color: var(--color-accent);
+}
+
+.team-description {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-top: 0.8rem;
+}
+
+.team-description a {
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 .person-card.featured {
@@ -1144,6 +1177,15 @@ body {
     font-size: 0.95rem;
     color: var(--color-primary);
     margin-bottom: 0.2rem;
+}
+
+.initiative-info h4 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.initiative-info h4 a:hover {
+    text-decoration: underline;
 }
 
 .initiative-info p {
