@@ -5,36 +5,85 @@
 // ---- State ----
 let currentSpread = 0;
 const totalLeaves = 6;
-const totalSpreads = totalLeaves + 1; // 0=cover, 1-5=spreads, 6=back cover
+const totalSpreads = totalLeaves + 1;
 let isAnimating = false;
 
-// ---- Navigation ----
+// Mobile state
+let mobileMode = false;
+let currentMobilePage = 0;
+const totalMobilePages = totalLeaves * 2; // 12 pages (front + back per leaf)
 
-function updateControls() {
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
+// ---- Mobile Navigation ----
+
+function showMobilePage(target) {
+    if (target < 0 || target >= totalMobilePages) return;
+    currentMobilePage = target;
+
+    const leaves = document.querySelectorAll('.leaf');
+
+    leaves.forEach(leaf => {
+        leaf.classList.remove('mobile-visible');
+        leaf.querySelector('.leaf-front').classList.remove('mobile-active');
+        leaf.querySelector('.leaf-back').classList.remove('mobile-active');
+    });
+
+    const leafIndex = Math.floor(target / 2);
+    const isFront = target % 2 === 0;
+    const leaf = leaves[leafIndex];
+
+    leaf.classList.add('mobile-visible');
+    const face = isFront ? leaf.querySelector('.leaf-front') : leaf.querySelector('.leaf-back');
+    face.classList.add('mobile-active');
+
+    updateMobileControls();
+}
+
+function updateMobileControls() {
     const prevBtns = [document.getElementById('prevBtn'), document.getElementById('prevBtn2')];
     const nextBtns = [document.getElementById('nextBtn'), document.getElementById('nextBtn2')];
     const indicators = [document.getElementById('pageIndicator'), document.getElementById('pageIndicator2')];
     const thumbs = document.querySelectorAll('.thumb');
 
-    prevBtns.forEach(btn => {
-        if (btn) btn.disabled = currentSpread === 0;
+    prevBtns.forEach(btn => { if (btn) btn.disabled = currentMobilePage === 0; });
+    nextBtns.forEach(btn => { if (btn) btn.disabled = currentMobilePage === totalMobilePages - 1; });
+
+    let label;
+    if (currentMobilePage === 0) label = 'Cover';
+    else if (currentMobilePage === totalMobilePages - 1) label = 'Back Cover';
+    else label = `Page ${currentMobilePage}`;
+
+    indicators.forEach(ind => { if (ind) ind.textContent = label; });
+
+    const spreadIndex = Math.floor(currentMobilePage / 2);
+    thumbs.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === spreadIndex);
     });
-    nextBtns.forEach(btn => {
-        if (btn) btn.disabled = currentSpread === totalSpreads - 1;
-    });
+}
+
+// ---- Desktop Navigation ----
+
+function updateControls() {
+    if (mobileMode) { updateMobileControls(); return; }
+
+    const prevBtns = [document.getElementById('prevBtn'), document.getElementById('prevBtn2')];
+    const nextBtns = [document.getElementById('nextBtn'), document.getElementById('nextBtn2')];
+    const indicators = [document.getElementById('pageIndicator'), document.getElementById('pageIndicator2')];
+    const thumbs = document.querySelectorAll('.thumb');
+
+    prevBtns.forEach(btn => { if (btn) btn.disabled = currentSpread === 0; });
+    nextBtns.forEach(btn => { if (btn) btn.disabled = currentSpread === totalSpreads - 1; });
 
     let label;
     if (currentSpread === 0) label = 'Cover';
     else if (currentSpread === totalSpreads - 1) label = 'Back Cover';
     else label = `Pages ${currentSpread * 2 - 1}–${currentSpread * 2}`;
 
-    indicators.forEach(ind => {
-        if (ind) ind.textContent = label;
-    });
-
-    thumbs.forEach((thumb, i) => {
-        thumb.classList.toggle('active', i === currentSpread);
-    });
+    indicators.forEach(ind => { if (ind) ind.textContent = label; });
+    thumbs.forEach((thumb, i) => { thumb.classList.toggle('active', i === currentSpread); });
 }
 
 function updateLeafZIndices() {
@@ -49,6 +98,12 @@ function updateLeafZIndices() {
 }
 
 function flipToSpread(target) {
+    if (mobileMode) {
+        const mobilePage = target * 2;
+        showMobilePage(Math.max(0, Math.min(mobilePage, totalMobilePages - 1)));
+        return;
+    }
+
     if (isAnimating || target === currentSpread) return;
     if (target < 0 || target >= totalSpreads) return;
 
@@ -69,16 +124,11 @@ function flipToSpread(target) {
                     leaf.style.zIndex = totalLeaves + 10;
                     leaf.classList.add('flipped');
                 }, d);
-                setTimeout(() => {
-                    leaf.style.zIndex = i;
-                }, d + 800);
+                setTimeout(() => { leaf.style.zIndex = i; }, d + 800);
                 delay += step;
             }
         }
-        setTimeout(() => {
-            updateLeafZIndices();
-            isAnimating = false;
-        }, delay + 850);
+        setTimeout(() => { updateLeafZIndices(); isAnimating = false; }, delay + 850);
     } else {
         let delay = 0;
         const step = Math.min(150, 600 / (prev - target));
@@ -93,20 +143,42 @@ function flipToSpread(target) {
                 delay += step;
             }
         }
-        setTimeout(() => {
-            updateLeafZIndices();
-            isAnimating = false;
-        }, delay + 850);
+        setTimeout(() => { updateLeafZIndices(); isAnimating = false; }, delay + 850);
     }
 }
 
-function nextPage() { flipToSpread(currentSpread + 1); }
-function prevPage() { flipToSpread(currentSpread - 1); }
-function goToPage(n) { flipToSpread(n); }
+// ---- Unified Navigation ----
+
+function nextPage() {
+    if (mobileMode) {
+        showMobilePage(currentMobilePage + 1);
+    } else {
+        flipToSpread(currentSpread + 1);
+    }
+}
+
+function prevPage() {
+    if (mobileMode) {
+        showMobilePage(currentMobilePage - 1);
+    } else {
+        flipToSpread(currentSpread - 1);
+    }
+}
+
+function goToPage(n) {
+    if (mobileMode) {
+        showMobilePage(n * 2);
+    } else {
+        flipToSpread(n);
+    }
+}
 
 function openBook() {
     document.getElementById('flipbook-section').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => flipToSpread(1), 800);
+    setTimeout(() => {
+        if (mobileMode) showMobilePage(1);
+        else flipToSpread(1);
+    }, 800);
 }
 
 // ---- Keyboard ----
@@ -124,11 +196,46 @@ document.addEventListener('keydown', (e) => {
 function toggleProgramme(card) { card.classList.toggle('expanded'); }
 function toggleResearch(card) { card.classList.toggle('flipped-card'); }
 
-// ---- Init ----
-function initLeaves() {
+// ---- Mode Switching ----
+
+function enterMobileMode() {
+    mobileMode = true;
     const leaves = document.querySelectorAll('.leaf');
+    leaves.forEach(leaf => {
+        leaf.classList.remove('flipped');
+        leaf.style.zIndex = '';
+        leaf.style.display = '';
+    });
+    showMobilePage(currentMobilePage);
+}
+
+function enterDesktopMode() {
+    mobileMode = false;
+    const leaves = document.querySelectorAll('.leaf');
+    leaves.forEach(leaf => {
+        leaf.classList.remove('mobile-visible');
+        leaf.querySelector('.leaf-front').classList.remove('mobile-active');
+        leaf.querySelector('.leaf-back').classList.remove('mobile-active');
+        leaf.style.display = '';
+    });
+
+    const targetSpread = Math.floor(currentMobilePage / 2);
+    currentSpread = 0;
+    flipToSpread(targetSpread);
     updateLeafZIndices();
     updateControls();
+}
+
+// ---- Init ----
+
+function initLeaves() {
+    mobileMode = isMobile();
+    if (mobileMode) {
+        enterMobileMode();
+    } else {
+        updateLeafZIndices();
+        updateControls();
+    }
 }
 
 function initTouchSupport() {
@@ -181,10 +288,23 @@ function initValueCards() {
     });
 }
 
+function initResizeHandler() {
+    let wasMobile = isMobile();
+    window.addEventListener('resize', () => {
+        const nowMobile = isMobile();
+        if (nowMobile !== wasMobile) {
+            wasMobile = nowMobile;
+            if (nowMobile) enterMobileMode();
+            else enterDesktopMode();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initLeaves();
     initTouchSupport();
     initClickToFlip();
     initLandingParallax();
     initValueCards();
+    initResizeHandler();
 });
